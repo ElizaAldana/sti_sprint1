@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <form id="myForm">
+        <input type="file" id="csvFile" accept=".csv" />
+        <br />
+        <input type="submit" value="Submit" />
+    </form>
+
+
+
+    <header>
+        <h1>Estudiantes STI 2022-1</h1>
+    </header>
+    <main>
+        <section class="sort-options">
+            <button id="nombres" class="sort-nombres">Filtrar por nombre A-Z y Z-A</button>
+            <button id="dmi" class="sort-dmi">Filtrar Mayor a menor DMI</button>
+            <button id="hamburguesa" class="sort-hamburguesa">Filtrar Menor a mayor Hamburguesa</button>
+        </section>
+
+        <section class="list-headers">
+            <div class="header-title">Observar consola</div>
+
+        </section>
+
+        <!--<section class="list"></section>
+        <div class="list-item">
+            <div class="item-nombres">Test 1</div>
+            <div class="item-dmi">Meta 1</div>
+            <div class="item-hamburguesa">T2</div>
+        </div>-->
+    </main>
+
+
+    <script src="main.js"></script>
+</body>
+
+<script>
+    let data;
+    let isTrue = false;
+    const myForm = document.getElementById("myForm");
+    const csvFile = document.getElementById("csvFile");
+
+    function csvToArray(str, delimiter = ",") {
+
+        const headers = str.slice(0, str.indexOf("\r\n")).split(delimiter);
+
+        const rows = str.slice(str.indexOf("\n") + 1).split("\n");
+
+        const arr = rows.map(function (row) {
+            const values = row.split(delimiter);
+            const el = headers.reduce(function (object, header, index) {
+                object[header] = values[index];
+                return object;
+            }, {});
+            return el;
+        });
+
+        return arr;
+    }
+
+    myForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const input = csvFile.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const text = e.target.result;
+            data = csvToArray(text);
+            //document.write(JSON.stringify(data));
+            console.log(data);
+        };
+
+        reader.readAsText(input);
+    });
+
+    /*Ordenamiento DMI*/
+    const dmi = document.getElementById("dmi");
+    dmi.addEventListener("click", e => {
+
+        console.log("DMI: 10-1");
+        data.sort((a, b) => {
+            return b.dmi - a.dmi;
+        });
+
+        data.forEach((e) => {
+            console.log(`${e.nombres} ${e.dmi} ${e.hamburguesa}`);
+        });
+    });
+
+    /*Ordenamiento Hamburguesa*/
+    const hamburguesa = document.getElementById("hamburguesa");
+    hamburguesa.addEventListener("click", e => {
+
+        console.log("Hamburguesas: 1-10");
+        data.sort((a, b) => {
+            return a.hamburguesa - b.hamburguesa;
+        });
+
+        data.forEach((e) => {
+            console.log(`${e.nombres} ${e.dmi} ${e.hamburguesa}`);
+        });
+    });
+
+    /*Ordenamiento Nombres*/
+    const nombres = document.getElementById("nombres");
+    nombres.addEventListener("click", e => {
+        //Para datos de strings
+        isTrue = !isTrue;
+        if (isTrue) {
+            console.log("Nombres: A-Z");
+            data.sort((a, b) => {
+                let fa = a.nombres.toLowerCase(),
+                    fb = b.nombres.toLowerCase();
+
+                if (fa < fb) {
+                    return -1;
+                }
+                if (fa > fb) {
+                    return 1;
+                }
+                return 0;
+            });
+        } else {
+            console.log("Nombres: Z-A");
+            data.sort((a, b) => {
+                let fa = a.nombres.toLowerCase(),
+                    fb = b.nombres.toLowerCase();
+
+                if (fb < fa) {
+                    return -1;
+                }
+                if (fb > fa) {
+                    return 1;
+                }
+                return 0;
+            });
+
+        }
+
+        //console.log(data);
+        data.forEach((e) => {
+            console.log(`${e.nombres} ${e.dmi} ${e.hamburguesa}`);
+        });
+    });
+
+
+</script>
+
+</html>

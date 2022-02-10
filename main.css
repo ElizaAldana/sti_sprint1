@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: darkgray;
+}
+
+header {
+    width: 100vw;
+    height: 60px;
+    background-color:powderblue;
+    padding: 10px;
+}
+
+header h1 {
+    color: #2b2d2f;
+    font-size: 36px;
+    text-align: center;
+
+}
+
+/*estilos para la lista*/
+main .sort-options {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+/*estilos para el botón*/
+main .sort-options button {
+    flex: 1 1 33%;
+    appearance: none;
+    background-color: rebeccapurple;
+    color: aliceblue;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    padding: 20px 10px 20px 10px;
+    margin: 0px 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+main .list-headers {
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    width: 100%;
+    font-size: 20px;
+    max-width: 800px;
+    margin: 50px auto 0px;
+    padding: 20px 5px 20px 5px;
+    font-weight: 700;
+}
+
+main .list{
+    display: block;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+main .list .list-item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 15px 0px;
+    padding: 20px 10px 20px 10px;
+    border: 1px solid #2b2d2f;
+    border-radius: 8px;
+}
